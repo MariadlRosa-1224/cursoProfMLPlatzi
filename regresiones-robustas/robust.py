@@ -23,5 +23,13 @@ if __name__ == "__main__":
     estimadores = {
         'SVR': SVR(gamma='auto', C=1.0, epsilon=0.1),
         'Huber': HuberRegressor(epsilon=1.35),
-        'RANSAC': RANSACRegressor() # meta estimador
+        'RANSAC': RANSACRegressor() # meta estimador (multiples estimadores)
     }
+
+    for name, estimador in estimadores.items():
+        estimador.fit(x_train, y_train)
+        y_pred = estimador.predict(x_test)
+        print("="*64)
+        print(name)
+        print("="*64)
+        print("MSE: ", mean_squared_error(y_test, y_pred))
